@@ -196,7 +196,7 @@ logs
 .sudo_as_admin_successful
 airflow.cfg
 airflow.db
-standalone_admin_password
+standalone_admin_password.txt
 webserver_config.py
 .gitconfig
 # End of https://www.toptal.com/developers/gitignore/api/python,venv
