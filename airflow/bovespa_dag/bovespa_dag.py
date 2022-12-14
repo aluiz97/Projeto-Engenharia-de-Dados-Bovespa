@@ -1,7 +1,7 @@
 from datetime import timedelta, datetime
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
-from bovespa_main import etl_function
+from bovespa_main import etl_function, etl_folders, etl_bucket
 
 default_args = {
     'owner': 'tony',
@@ -20,10 +20,22 @@ dag = DAG(
     description = 'First bovespa dag'
 )
 
+create_etl_buckets = PythonOperator(
+    task_id='create_bucket',
+    python_callable=etl_bucket,
+    dag=dag
+)
+
+create_etl_folders = PythonOperator(
+    task_id='create_folders',
+    python_callable=etl_folders,
+    dag=dag
+)
+
 run_etl = PythonOperator(
     task_id='bovespa_etl',
     python_callable=etl_function, 
     dag=dag
 )
 
-run_etl
+create_etl_buckets >> create_etl_folders >> run_etl

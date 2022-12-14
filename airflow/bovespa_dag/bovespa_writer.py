@@ -31,7 +31,7 @@ class BovespaDataWriter(DataWriter):
 
         for i in range(len(acao)):
 
-            with s3.open(f'{adress}/{stock_name}-{acao[i]["DATPRG"][0:10]}', 'w') as fp:
+            with s3.open(f'{adress}/extracted_at={acao[i]["DATPRG"][0:10]}', 'wb') as fp:
                 json.dump(acao[i], fp)
 
     def _write_datas(self, stocks: list, bucket_adress: str) -> None:
