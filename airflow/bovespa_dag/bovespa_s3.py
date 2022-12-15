@@ -34,3 +34,7 @@ def create_folders(bucket_name:str, folders: list):
     for i in range(len(folders)):
 
         s3_client.put_object(Bucket=bucket_name, Key=(folders[i]+'/'))
+
+def upload_file(bucket:str, folder:str, file_name:str, file_saved):
+
+  client.put_object(Body=file_saved, Bucket=bucket, Key=f'{folder}/{file_name}.json')

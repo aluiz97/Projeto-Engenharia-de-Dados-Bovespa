@@ -23,5 +23,5 @@ def etl_folders():
 
 def etl_function():
 
-    BovespaDataWriter(initial_date, final_date)._write_datas(stocks, bucket_adress)
+    BovespaDataWriter(initial_date, final_date)._write_datas(stocks, bucket_name)
     

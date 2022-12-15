@@ -3,7 +3,7 @@ import json
 import os
 from datetime import date
 from abc import ABC, abstractmethod
-from s3fs import S3FileSystem
+from bovespa_s3 import upload_file
 
 class DataWriter(ABC):
 
@@ -24,20 +24,16 @@ class BovespaDataWriter(DataWriter):
 
     def _write(self, stock: str, adress: str) -> None:
 
-        s3 = S3FileSystem()
-
         acao = bovespa_api.Acoes(stock).get_data(self.initial_date, self.final_date)
-        stock_name = stock
 
         for i in range(len(acao)):
 
-            with s3.open(f'{adress}/extracted_at={acao[i]["DATPRG"][0:10]}', 'wb') as fp:
-                json.dump(acao[i], fp)
+            #file_name = f'extracted_at={acao[i]["DATPRG"][0:10]}'
+            file_to_save = json.dumps(acao[i])
+            upload_file(adress, stock, stock, file_to_save)
 
     def _write_datas(self, stocks: list, bucket_adress: str) -> None:
 
         for i in range(len(stocks)):
 
-            adress = f'{bucket_adress}/{stocks[i]}'
-
-            self._write(stocks[i], adress)
+            self._write(stocks[i], bucket_adress)
