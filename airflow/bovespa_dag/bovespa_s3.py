@@ -1,10 +1,12 @@
 # %%
 import boto3
+from s3fs import S3FileSystem
 from botocore.exceptions import ClientError
 import logging
 from dotenv import load_dotenv
 from os import getenv
 import time
+import json
 
 # %%
 load_dotenv('/home/ubuntu/.env')
@@ -38,3 +40,5 @@ def create_folders(bucket_name:str, folders: list):
 def upload_file(bucket:str, folder:str, file_name:str, file_saved):
 
   client.put_object(Body=file_saved, Bucket=bucket, Key=f'{folder}/{file_name}.json')
+
+  
