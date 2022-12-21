@@ -1,7 +1,6 @@
 from datetime import date
 from bovespa_writer import BovespaDataWriter
 from bovespa_s3 import bucket, create_folders
-import time
 
 stocks = ['PETR4', 'BBAS3', 'VALE3', 'EGIE3', 'ITSA4', 'TAEE11', 'MGLU3', 'WEGE3']
 bucket_name = 'bovespa-etl'
