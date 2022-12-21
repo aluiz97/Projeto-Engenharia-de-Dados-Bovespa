@@ -11,8 +11,8 @@ logging.basicConfig(level=logging.INFO)
 # %%
 class BaseApi(ABC):
 
-    def __init__(self, acao:str) -> None:
-        self.acao = acao
+    def __init__(self, stock:str) -> None:
+        self.stock = stock
         self.endpoint = "https://www.okanebox.com.br/api"
 
     @abstractmethod
@@ -24,7 +24,7 @@ class BaseApi(ABC):
        pass
 
 # %%
-class Acoes(BaseApi):
+class Stocks(BaseApi):
 
     api_endpoint = "acoes/hist"
 
@@ -33,7 +33,7 @@ class Acoes(BaseApi):
         initial_date_str = f"{initial_date.year}{initial_date.month}{initial_date.day}"
         final_date_str = f"{final_date.year}{final_date.month}{final_date.day}"
 
-        return f"{self.endpoint}/{self.api_endpoint}/{self.acao}/{initial_date_str}/{final_date_str}"
+        return f"{self.endpoint}/{self.api_endpoint}/{self.stock}/{initial_date_str}/{final_date_str}"
 
     def get_data(self, initial_date: date, final_date: date) -> dict:
 
