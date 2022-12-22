@@ -2,16 +2,18 @@ from datetime import timedelta, datetime
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
 from bovespa_main import etl_function, etl_folders, etl_bucket
+import pendulum
 
 default_args = {
-    'owner': 'tony',
+    'owner': 'engineering',
     'depends_on_past': False,
-    'start_date': datetime(2022, 11, 9),
+    'start_date': pendulum.datetime(2022, 12, 23, tz="America/Sao_Paulo"),
     'email': ['almneto@estudante.ufla.br'],
     'email_on_failure': False,
     'email_on_retry': False,
     'retries': 1,
-    'retry_delay': timedelta(minutes=1)
+    'retry_delay': timedelta(minutes=1),
+    'schedule_interval': '@Daily'
 }
 
 dag = DAG(
